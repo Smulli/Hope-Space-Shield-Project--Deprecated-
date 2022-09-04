@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Using the namespace
 using Hope.Enemy.Utils;
 using Hope.Enemy.Attributes;
 using Hope.Player.Utils;
@@ -18,10 +19,12 @@ namespace Hope.Enemy.Controller{
         private int _getScore;
 
         private void Awake(){
-            //gameObject.hideFlags = HideFlags.HideInHierarchy;
+            //Hide the instances in Hierarchy
+            gameObject.hideFlags = HideFlags.HideInHierarchy;
         }
 
         void Start(){
+            //Move object with scroll left or right 
             _offset = Random.Range(-2f, 2f);
                 
             _attribs = GetComponent<AsteroidAttributes>();

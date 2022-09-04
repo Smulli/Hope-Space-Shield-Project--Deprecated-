@@ -23,6 +23,7 @@ namespace Hope.Props.Utils{
             InitPool();
         }
 
+        //Initial Pool
         public void InitPool(){
             GameObject _building;
 
@@ -36,13 +37,14 @@ namespace Hope.Props.Utils{
                 _building.transform.position = new Vector3(xPos, -4.8f, 0f);
 
                 var _dist = Vector3.Distance(_player.position, _building.transform.position);
-
+                //If the distance with player be less than 1, the buildings will be have disabling
                 if(_dist < 1f){
                     AddToPool(_building);
                 }
             }
         }
 
+        //Save instance and reset the transform and disable
         public void AddToPool(GameObject _building){
             _building.SetActive(false);
             _building.transform.position = Vector3.zero;

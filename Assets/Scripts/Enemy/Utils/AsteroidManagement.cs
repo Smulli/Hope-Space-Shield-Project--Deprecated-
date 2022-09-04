@@ -18,6 +18,7 @@ namespace Hope.Enemy.Utils{
             _timer -= Time.deltaTime;
         }
 
+        //Gold asteroid Spawn function
         private float GoldSpawn(float _goldSpawn){
             if(_timer > 1f){
                 _goldSpawn = 1f;
@@ -33,6 +34,7 @@ namespace Hope.Enemy.Utils{
 
         float _spawn;
 
+        //Return a random name from enum 
         public AsteroidAttributes.AsteroidTypes GetRandomAttribute(){
             return(AsteroidAttributes.AsteroidTypes)UnityEngine.Random.Range(GoldSpawn(_spawn), Enum.GetNames(typeof(AsteroidAttributes.AsteroidTypes)).Length);
         }

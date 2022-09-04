@@ -21,6 +21,7 @@ namespace Hope.Player.Attributes{
         }
 
         void Update(){
+            //Time for restart
             if(_isValid){
                 _restart -= Time.deltaTime;
             }
@@ -32,6 +33,7 @@ namespace Hope.Player.Attributes{
             }
         }
 
+        //PowerUp Enum
         public enum PowerUps {
             Gatling,
             Rockets,
@@ -40,12 +42,13 @@ namespace Hope.Player.Attributes{
 
         public PowerUps _type{get; private set;}
 
+        //Set power attributes
         public void SetPower(PowerUps type){
             _type = type;
             _isValid = true;
 
-            //Obtiene el ID del objeto dentro de la instancia
-            //Debug.Log(GetInstanceID());
+            /*Get the object ID inside instance
+            Debug.Log(GetInstanceID());^*/
 
             switch(type){
                 case
@@ -68,7 +71,7 @@ namespace Hope.Player.Attributes{
                 break;
             }
         }
-        //Funciones lambda para string y float
+        //Lambda functions for string & float
         public string GetName() => _name;
         public float GetFireRate() => _fireRate;
 

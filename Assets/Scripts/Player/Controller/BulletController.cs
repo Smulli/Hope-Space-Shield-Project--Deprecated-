@@ -11,12 +11,13 @@ namespace Hope.Bullet.Controller{
     {
         private float _speed;
         public Transform _target;
-        private Rigidbody2D _rb;
+        //private Rigidbody2D _rb;
         [SerializeField] private string _tag;
 
         void Start(){
+            /*Physical based movement
             _rb = gameObject.GetComponent<Rigidbody2D>();
-            
+            */
             //_target = PoolAsteroid.pooler._instantiate[PoolAsteroid.pooler._instantiate.Count].transform;
         }
 
@@ -28,6 +29,7 @@ namespace Hope.Bullet.Controller{
 
         void Update()
         {
+            //it just works when the condition pass to be true
             if(PlayerAttributes.SINGLETON.GetName() == "rockets"){
                 if(!_target.gameObject.activeInHierarchy){
                     BulletPool.pooler.Recycle(gameObject);
@@ -51,6 +53,7 @@ namespace Hope.Bullet.Controller{
         }
 
         private void FindTarget(){
+            //Assing transform for each objects in list
             foreach(var item in PoolAsteroid.pooler._instantiate){
                 if(item.gameObject.activeInHierarchy){
                     _target = item.transform;
@@ -58,6 +61,7 @@ namespace Hope.Bullet.Controller{
             }
         }
 
+        //Interpolate the movement between own transform of the object and transform of the targets
         public void MoveToTarget(){
             _speed = 1f;
 

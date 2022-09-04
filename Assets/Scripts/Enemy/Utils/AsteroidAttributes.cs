@@ -19,6 +19,7 @@ namespace Hope.Enemy.Attributes{
 
         public AsteroidTypes _type{get; set;}
 
+        //Set Attributes Method
         public void SetAttributes(AsteroidTypes type){
             _type = type;
             

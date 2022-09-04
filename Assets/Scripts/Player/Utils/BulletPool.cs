@@ -21,6 +21,7 @@ namespace Hope.Bullet.Utils{
             else{Destroy(gameObject);}
         }
 
+        //Initial Pool
         void Start(){
             for(int i = 0; i < 3; i++){
                 GameObject _bullet = Instantiate(_prefab);
@@ -28,9 +29,10 @@ namespace Hope.Bullet.Utils{
             }
         }
 
+        //Spawn bullet method
         public void Shoot(){
             GameObject _bullet = GetBullet();
-
+            //Copy the transform position and rotation of the Init Pos to activate
             float _posX = _initPos.transform.position.x;
             float _posY = _initPos.transform.position.y;
             float _posZ = _initPos.transform.position.z;
@@ -40,12 +42,13 @@ namespace Hope.Bullet.Utils{
             _bullet.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             _bullet.gameObject.SetActive(true);
 
-
+            //Create new bullet if it required 
             if(_available.Count < 1){
                 CreateNewBullet();
             }
         }
 
+        //Save instance and reset the transform
         public void Recycle(GameObject _bullet){
             _bullet.gameObject.SetActive(false);
             _bullet.transform.position = Vector3.zero;
@@ -55,6 +58,7 @@ namespace Hope.Bullet.Utils{
             _available.Enqueue(_bullet);
         }
 
+        //Get the Bullet from the Queue
         public GameObject GetBullet(){
             GameObject _bullet = _available.Dequeue();
             _instantiate.Add(_bullet);
@@ -62,23 +66,10 @@ namespace Hope.Bullet.Utils{
             return _bullet;
         }
 
+        //Create the new bullet method
         public GameObject CreateNewBullet(){         
             GameObject _bullet = Instantiate(_prefab);
             Recycle(_bullet);
-
-            return _bullet;
-        }
-
-        public GameObject MoveToTarget(GameObject _bullet){
-            float _speed = 1f;
-
-            foreach(var item in PoolAsteroid.pooler._instantiate){
-                if(item.gameObject.activeInHierarchy){
-                    _position = item.transform;
-                }
-            }
-
-            _bullet.transform.position = Vector3.Lerp(_initPos.position, _position.position, _speed);
 
             return _bullet;
         }
