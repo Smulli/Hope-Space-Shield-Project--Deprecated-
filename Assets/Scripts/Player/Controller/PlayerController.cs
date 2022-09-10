@@ -7,13 +7,24 @@ using Hope.Bullet.Utils;
 
 namespace Hope.Player.Controller{ 
     public class PlayerController : MonoBehaviour {
+        public static PlayerController _player;
         PlayerAttributes _attribs;
         public float _angle;
         public float _speed;
-        public float rotMin = -90f;
-        public float rotMax = 90f;
+        public float rotMin = -1000f;
+        public float rotMax = 1000f;
         [SerializeField] private float _lastShot;
         [SerializeField] private string _pTag;
+        public bool _active;
+
+        void Awake()
+        {
+            if(PlayerController._player == null)
+            {
+                _player = this;
+            }
+            else { Destroy(this.gameObject); }
+        }
 
         void Start(){
             _attribs = GetComponent<PlayerAttributes>();
@@ -21,7 +32,25 @@ namespace Hope.Player.Controller{
 
         //Basic control of the Hope("pending change")
         void FixedUpdate(){
-            if(Input.GetButton("Fire1")){
+            if (_active){
+                if(Input.touchCount == 1) {
+                    Touch screenTouch = Input.GetTouch(0);
+
+                    if(screenTouch.phase == TouchPhase.Moved) {
+                        _angle = screenTouch.deltaPosition.x;
+
+                        //_angle = Mathf.Clamp(_angle, rotMin, rotMax);
+                        
+                        transform.rotation = Quaternion.Euler(0f, 0f, _angle);
+                    }
+
+                    if (screenTouch.phase == TouchPhase.Ended) {
+                        _active = false;
+                    }
+                }
+            }
+
+            /*if(Input.GetButton("Fire1")){
                 //Assing the name of power up
                 _pTag = _attribs.GetName();
                 _angle += Input.GetAxis("MouseX") * _speed * -Time.deltaTime;
@@ -35,7 +64,7 @@ namespace Hope.Player.Controller{
                     BulletPool.pooler.Shoot();
                     _lastShot = Time.time;
                 }
-            }
+            }*/
         }
     }
 }
