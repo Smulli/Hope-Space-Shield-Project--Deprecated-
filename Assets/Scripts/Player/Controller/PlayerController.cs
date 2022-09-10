@@ -11,8 +11,6 @@ namespace Hope.Player.Controller{
         PlayerAttributes _attribs;
         public float _angle;
         public float _speed;
-        public float rotMin = -1000f;
-        public float rotMax = 1000f;
         [SerializeField] private float _lastShot;
         [SerializeField] private string _pTag;
         public bool _active;
@@ -30,7 +28,7 @@ namespace Hope.Player.Controller{
             _attribs = GetComponent<PlayerAttributes>();
         }
 
-        //Basic control of the Hope("pending change")
+        //Basic control of the Hope with TouchPhase
         void FixedUpdate(){
             if (_active){
                 if(Input.touchCount == 1) {
@@ -38,8 +36,6 @@ namespace Hope.Player.Controller{
 
                     if(screenTouch.phase == TouchPhase.Moved) {
                         _angle = screenTouch.deltaPosition.x;
-
-                        //_angle = Mathf.Clamp(_angle, rotMin, rotMax);
                         
                         transform.rotation = Quaternion.Euler(0f, 0f, _angle);
                     }
@@ -50,6 +46,7 @@ namespace Hope.Player.Controller{
                 }
             }
 
+            //Deprecated control
             /*if(Input.GetButton("Fire1")){
                 //Assing the name of power up
                 _pTag = _attribs.GetName();
